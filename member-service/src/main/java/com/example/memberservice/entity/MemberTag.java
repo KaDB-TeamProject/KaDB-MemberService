@@ -1,6 +1,5 @@
 package com.example.memberservice.entity;
 
-import com.example.memberservice.dto.MemberTagDTO;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -15,8 +14,9 @@ public class MemberTag extends BaseEntity {
     @Column(name = "member_tag_id")
     private int no;
 
-    @Column(name = "tag_id")
-    private int tagId;
+    @ManyToOne
+    @JoinColumn(name = "tag_id")
+    private Tag tag;
 
     @ManyToOne
     @JoinColumn(name = "member_id")

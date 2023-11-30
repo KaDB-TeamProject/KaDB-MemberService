@@ -5,7 +5,15 @@ import jakarta.persistence.*;
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn(name = "DTYPE")
-@Table(name = "follow")
+@Table(
+        name = "follow",
+        uniqueConstraints = {
+                @UniqueConstraint(
+                        name = "unique_follower_following",
+                        columnNames = {"follower_id", "following_id"}
+                ) // 두 키의 조합이 유니크 하도록 설정
+        }
+)
 public class Follow extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
