@@ -1,6 +1,8 @@
 package com.example.memberservice.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -14,11 +16,13 @@ import jakarta.persistence.*;
                 ) // 두 키의 조합이 유니크 하도록 설정
         }
 )
+@AllArgsConstructor
+@NoArgsConstructor
 public class Follow extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "follow_id")
-    private int no;
+    private Long no;
 
     @ManyToOne
     @JoinColumn(name = "follower_id", nullable = false)
