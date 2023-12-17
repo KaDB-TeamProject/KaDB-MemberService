@@ -3,7 +3,9 @@ package com.example.memberservice.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Data
 @Entity
@@ -14,7 +16,7 @@ public class Member extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "member_id")
-    private int id;
+    private Long id;
 
     @Column(name = "member_email", nullable = false, unique = true, length = 20)
     private String email;
@@ -45,4 +47,11 @@ public class Member extends BaseEntity {
 
     @OneToMany(mappedBy = "following")
     private List<Follow> followings;
+
+    @ManyToMany
+    @JoinTable(
+            name = "member_authority",
+            joinColumns = {@JoinColumn(name = "member_id", referencedColumnName = "member_id")},
+            inverseJoinColumns = {@JoinColumn(name = "authority_name", referencedColumnName = "authority_name")})
+    private Set<Authority> authorities;
 }
